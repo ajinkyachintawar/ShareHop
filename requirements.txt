@@ -1,0 +1,5 @@
+pyobjc-framework-ScreenCaptureKit
+pyobjc-framework-Quartz
+pyobjc-framework-CoreMedia
+pyobjc-framework-libdispatch
+pyobjc-framework-Cocoa
