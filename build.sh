@@ -63,6 +63,9 @@ setup(name="ShareHop", app=["sharehop.py"], options={"py2app": {
 }})
 EOF
 
+# py2app records the build machine's Python path in the plist. The app does not need it, and it
+# would publish the builder's home folder name, so drop it before signing.
+/usr/libexec/PlistBuddy -c "Delete :PythonInfoDict:PythonExecutable" dist/ShareHop.app/Contents/Info.plist
 codesign --force --deep -s - dist/ShareHop.app
 codesign --verify --deep --strict dist/ShareHop.app
 echo "built dist/ShareHop.app ($(du -sh dist/ShareHop.app | cut -f1))"
