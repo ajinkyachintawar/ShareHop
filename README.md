@@ -10,9 +10,16 @@ ShareHop gives the call app one window to share. That window follows the mouse f
 
 ## Download
 
-Grab `ShareHop-1.0.0-macos26-arm64.zip` from the [Releases page](https://github.com/ajinkyachintawar/ShareHop/releases/latest), unzip it and drag ShareHop into Applications.
+There are two downloads on the [Releases page](https://github.com/ajinkyachintawar/ShareHop/releases/latest). Unzip the one you want and drag ShareHop into Applications. They have the same source code and the same features.
 
-The download needs an Apple Silicon Mac running macOS 26 or later. On anything older, build it from source (see below).
+| Download | Size | Runs on |
+|---|---|---|
+| `ShareHop-1.0.0-macos26-arm64.zip` | about 16 MB | Apple Silicon, macOS 26 or later |
+| `ShareHop-1.0.0-universal.zip` | about 30 MB | Apple Silicon and Intel, macOS 12.3 or later |
+
+If you have an Apple Silicon Mac on macOS 26, take the first one. It is the build I run every day and the only one I have used in real calls.
+
+The universal one is built with the standard Python from python.org instead of the Homebrew one, which is what lets it run on older systems and on Intel. I have not run it on an Intel Mac or on any macOS older than 26. See "What I have tested" below. If you try it, I would like to hear how it went.
 
 I have not paid for an Apple developer certificate, so the app is not notarised and macOS will refuse to open it the first time. To get past that:
 
@@ -94,6 +101,8 @@ Run this way, the Screen Recording permission belongs to whatever launched it (T
 
 `.venv/bin/python sharehop.py --selftest` runs the built-in checks for the display picking, switching and hide list logic.
 
+To build the universal download instead, run `./build-universal.sh`. It fetches the official Python 3.14.10 installer from python.org, checks its checksum and signature, unpacks it inside the project folder without installing anything, and builds with py2app. It takes about a minute, needs no admin rights, and writes `dist-universal/ShareHop-1.0.0-universal.zip`. `build.sh` is unchanged.
+
 ## Command-line options
 
 These work with `sharehop.py`.
@@ -126,6 +135,8 @@ The window has to be off screen and not transparent. I tried hiding it with tran
 ## What I have tested
 
 One machine: an Apple Silicon MacBook Air on macOS 26.6, with one external display and Stage Manager on, sharing through Google Meet in Chrome. I have not tried Microsoft Teams or Zoom yet. It is macOS only.
+
+The universal build is checked less. On that same Mac its built-in checks pass, both natively and as Intel code under Rosetta, and every binary inside it contains both architectures. I have not run it on a real Intel Mac or on any macOS older than 26. 12.3 is the lowest version because that is the first one with ScreenCaptureKit. The hidden output window and the Stage Manager handling were tuned on macOS 26, so I do not know how they behave on older versions. The permission alert calls the setting "Screen & System Audio Recording", which older macOS versions call "Screen Recording".
 
 ## Known limits
 

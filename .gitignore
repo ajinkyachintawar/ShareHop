@@ -6,3 +6,5 @@ __pycache__/
 .DS_Store
 LinkedIn-Posts/
 media/
+build-universal/
+dist-universal/
